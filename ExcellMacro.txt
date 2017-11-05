@@ -1,0 +1,33 @@
+Sub test()
+
+    Dim LastRow As Long, LastColumn As Long, index As Long
+    Dim cell As Range
+    
+    Set ws = Worksheets(1)
+    
+    LastRow = ws.Cells.SpecialCells(xlCellTypeLastCell).Row
+    
+    ws.UsedRange 'Refresh UsedRange
+    LastColumn = ws.UsedRange.Columns(ws.UsedRange.Columns.Count).Column
+    index = InStr(1, Cells(3, 10), ";")
+    
+    For Each cell In ws.Range(Cells(1, 1), Cells(LastRow, LastColumn))
+        index = InStr(1, cell.Value, ";")
+        
+        If index <> 0 Then
+            
+            ' input Char function into the cell
+            With cell
+                .Value = Left(cell.Value, index) & Chr(10) & Right(cell.Value, Len(cell) - index)
+		with .borders
+			
+		end with
+
+            End With
+            
+        
+        End If
+        
+    Next cell
+    
+End Sub

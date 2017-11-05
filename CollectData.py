@@ -1,12 +1,11 @@
-# This script draws up report of cut Excel
+# This skript is assemble data from a lot of files in Input folder
 from openpyxl import load_workbook
 
-from ProgramFiles import MyFunctions as MyF
-from  ProgramFiles.CellSetings import cellStyle
+import ProgramFiles.MyFunctions as MyF
 
 COLUMN_LETTERS = 'CFGHIJKLMNOPQRSTUVWXYZ' # - columns that I'll need
 
-NAME_RB = 'TestResult.xlsx'
+NAME_RB = 'Result.xlsx'
 
 LAST_ROW = 3 # defalute row, where insert result begins
 
@@ -14,13 +13,15 @@ def main():
     dataList = []
     LAST_ROW = 3
 
-    MyF.getInputUser();
-
     #Iterate through folder Input, defalute value, and treat raw data.
-    for raw_file in MyF.listInputDir():
-        rawWB = load_workbook(raw_file)
-        sheetList=rawWB.get_sheet_names()
-        dataList = MyF.LoadDataFromInput(rawWB[sheetList[0]])
+    if MyF.listInputDir():
+        for raw_file in MyF.listInputDir():
+            rawWB = load_workbook(raw_file)
+            sheetList=rawWB.get_sheet_names()
+            dataList += MyF.LoadDataFromInput(rawWB[sheetList[0]])
+    else:
+        print("There are no raw files *.xlsx format in Input folder")
+        return 0
 
 
     # Treat data in dataList

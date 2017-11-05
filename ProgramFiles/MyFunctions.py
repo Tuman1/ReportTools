@@ -67,8 +67,10 @@ def InputLineTreatment(arg):
 
 def listInputDir(folder='Input'):
     result = [folder + '\\' + x for x in listdir(folder) if x.endswith(".xlsx")]
-    result.sort(reverse=True)
-    return result
+    if result:
+        return result
+    else:
+        return False
 
 def CreateRegionForIteration(arg):
     """This function creates region for iteration for other functions"""
@@ -87,15 +89,15 @@ def CreateRegionForIteration(arg):
         for letter in string.ascii_uppercase:
             if FirstLetterRegion <= letter <= SecondLetterRegion:
                 column.append(letter)
-        row = list(range(FirstNumberRegion, SecondNumberRegion+1))
+        row = [str(x) for x in range(FirstNumberRegion, SecondNumberRegion+1)]
         return row, column
 
 def getInputUser():
     print("Добрый день")
 
-    decision = input("Хотите продолжить работу по умолчанию? y/n")
-    while decision!='y' or decision == 'x':
-        decision = input("Не подходящий ответ. Выберете y/n")
+    decision = input("Хотите продолжить работу по умолчанию? y/n\n")
+    while decision !='y' and decision != 'n':
+        decision = input("Не подходящий ответ. Выберете y/n\n")
 
 if __name__ == "__main__":
-    print(listInputDir()[0])
+    pass
