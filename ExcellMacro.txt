@@ -20,6 +20,9 @@ Sub test()
             With cell
                 .Value = Left(cell.Value, index) & Chr(10) & Right(cell.Value, Len(cell) - index)
 		with .borders
+		        .LineStyle = xlContinuous
+        		.Weight = xlThin
+   		End With
 			
 		end with
 
